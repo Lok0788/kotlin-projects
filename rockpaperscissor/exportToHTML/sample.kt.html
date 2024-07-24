@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>sample.kt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sample.kt</font>
+</center></td></tr></table>
+<pre><span class="s0">import kotlin</span><span class="s1">.</span><span class="s0">random</span><span class="s1">.</span><span class="s0">Random</span>
+
+<span class="s2">fun </span><span class="s0">main</span><span class="s1">() {</span>
+    <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Welcome to Rock-Paper-Scissors! Let's start the game.&quot;</span><span class="s1">)</span>
+
+    <span class="s2">var </span><span class="s0">roundsPlayed </span><span class="s1">= </span><span class="s4">0</span>
+    <span class="s2">var </span><span class="s0">userScore </span><span class="s1">= </span><span class="s4">0</span>
+    <span class="s2">var </span><span class="s0">computerScore </span><span class="s1">= </span><span class="s4">0</span>
+
+    <span class="s2">while </span><span class="s1">(</span><span class="s0">roundsPlayed </span><span class="s1">&lt; </span><span class="s4">3</span><span class="s1">) {</span>
+        <span class="s2">val </span><span class="s0">userChoice </span><span class="s1">= </span><span class="s0">getUserChoice</span><span class="s1">()</span>
+        <span class="s2">val </span><span class="s0">computerChoice </span><span class="s1">= </span><span class="s0">getComputerChoice</span><span class="s1">()</span>
+
+        <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;You chose: </span><span class="s2">$</span><span class="s0">userChoice</span><span class="s3">&quot;</span><span class="s1">)</span>
+        <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Computer chose: </span><span class="s2">$</span><span class="s0">computerChoice</span><span class="s3">&quot;</span><span class="s1">)</span>
+
+        <span class="s2">val </span><span class="s0">result </span><span class="s1">= </span><span class="s0">determineWinner</span><span class="s1">(</span><span class="s0">userChoice</span><span class="s1">, </span><span class="s0">computerChoice</span><span class="s1">)</span>
+        <span class="s2">when </span><span class="s1">(</span><span class="s0">result</span><span class="s1">) {</span>
+            <span class="s3">&quot;Draw&quot; </span><span class="s1">-&gt; </span><span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;It's a draw!&quot;</span><span class="s1">)</span>
+            <span class="s3">&quot;User&quot; </span><span class="s1">-&gt; {</span>
+                <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;You win this round!&quot;</span><span class="s1">)</span>
+                <span class="s0">userScore</span><span class="s1">++</span>
+            <span class="s1">}</span>
+            <span class="s3">&quot;Computer&quot; </span><span class="s1">-&gt; {</span>
+                <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Computer wins this round!&quot;</span><span class="s1">)</span>
+                <span class="s0">computerScore</span><span class="s1">++</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">roundsPlayed</span><span class="s1">++</span>
+    <span class="s1">}</span>
+
+    <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Game Over!&quot;</span><span class="s1">)</span>
+    <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Your score: </span><span class="s2">$</span><span class="s0">userScore</span><span class="s3">&quot;</span><span class="s1">)</span>
+    <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Computer's score: </span><span class="s2">$</span><span class="s0">computerScore</span><span class="s3">&quot;</span><span class="s1">)</span>
+
+    <span class="s2">if </span><span class="s1">(</span><span class="s0">userScore </span><span class="s1">&gt; </span><span class="s0">computerScore</span><span class="s1">) {</span>
+        <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Congratulations! You are the overall winner!&quot;</span><span class="s1">)</span>
+    <span class="s1">} </span><span class="s2">else if </span><span class="s1">(</span><span class="s0">userScore </span><span class="s1">&lt; </span><span class="s0">computerScore</span><span class="s1">) {</span>
+        <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Sorry! The computer is the overall winner!&quot;</span><span class="s1">)</span>
+    <span class="s1">} </span><span class="s2">else </span><span class="s1">{</span>
+        <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;It's a tie overall!&quot;</span><span class="s1">)</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s2">fun </span><span class="s0">getUserChoice</span><span class="s1">()</span><span class="s0">: String </span><span class="s1">{</span>
+    <span class="s2">while </span><span class="s1">(</span><span class="s2">true</span><span class="s1">) {</span>
+        <span class="s0">print</span><span class="s1">(</span><span class="s3">&quot;Enter your choice (Rock, Paper, or Scissors): &quot;</span><span class="s1">)</span>
+        <span class="s2">val </span><span class="s0">userInput </span><span class="s1">= </span><span class="s0">readLine</span><span class="s1">()</span><span class="s0">?</span><span class="s1">.</span><span class="s0">toUpperCase</span><span class="s1">()</span>
+        <span class="s2">if </span><span class="s1">(</span><span class="s0">userInput </span><span class="s1">== </span><span class="s3">&quot;ROCK&quot; </span><span class="s1">|| </span><span class="s0">userInput </span><span class="s1">== </span><span class="s3">&quot;PAPER&quot; </span><span class="s1">|| </span><span class="s0">userInput </span><span class="s1">== </span><span class="s3">&quot;SCISSORS&quot;</span><span class="s1">) {</span>
+            <span class="s2">return </span><span class="s0">userInput</span>
+        <span class="s1">} </span><span class="s2">else </span><span class="s1">{</span>
+            <span class="s0">println</span><span class="s1">(</span><span class="s3">&quot;Invalid choice. Please enter Rock, Paper, or Scissors.&quot;</span><span class="s1">)</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s2">fun </span><span class="s0">getComputerChoice</span><span class="s1">()</span><span class="s0">: String </span><span class="s1">{</span>
+    <span class="s2">val </span><span class="s0">choices </span><span class="s1">= </span><span class="s0">arrayOf</span><span class="s1">(</span><span class="s3">&quot;ROCK&quot;</span><span class="s1">, </span><span class="s3">&quot;PAPER&quot;</span><span class="s1">, </span><span class="s3">&quot;SCISSORS&quot;</span><span class="s1">)</span>
+    <span class="s2">return </span><span class="s0">choices</span><span class="s1">[</span><span class="s0">Random</span><span class="s1">.</span><span class="s0">nextInt</span><span class="s1">(</span><span class="s0">choices</span><span class="s1">.</span><span class="s0">size</span><span class="s1">)]</span>
+<span class="s1">}</span>
+
+<span class="s2">fun </span><span class="s0">determineWinner</span><span class="s1">(</span><span class="s0">userChoice: String</span><span class="s1">, </span><span class="s0">computerChoice: String</span><span class="s1">)</span><span class="s0">: String </span><span class="s1">{</span>
+    <span class="s2">return if </span><span class="s1">(</span><span class="s0">userChoice </span><span class="s1">== </span><span class="s0">computerChoice</span><span class="s1">) {</span>
+        <span class="s3">&quot;Draw&quot;</span>
+    <span class="s1">} </span><span class="s2">else if </span><span class="s1">((</span><span class="s0">userChoice </span><span class="s1">== </span><span class="s3">&quot;ROCK&quot; </span><span class="s1">&amp;&amp; </span><span class="s0">computerChoice </span><span class="s1">== </span><span class="s3">&quot;SCISSORS&quot;</span><span class="s1">) ||</span>
+        <span class="s1">(</span><span class="s0">userChoice </span><span class="s1">== </span><span class="s3">&quot;PAPER&quot; </span><span class="s1">&amp;&amp; </span><span class="s0">computerChoice </span><span class="s1">== </span><span class="s3">&quot;ROCK&quot;</span><span class="s1">) ||</span>
+        <span class="s1">(</span><span class="s0">userChoice </span><span class="s1">== </span><span class="s3">&quot;SCISSORS&quot; </span><span class="s1">&amp;&amp; </span><span class="s0">computerChoice </span><span class="s1">== </span><span class="s3">&quot;PAPER&quot;</span><span class="s1">)) {</span>
+        <span class="s3">&quot;User&quot;</span>
+    <span class="s1">} </span><span class="s2">else </span><span class="s1">{</span>
+        <span class="s3">&quot;Computer&quot;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
